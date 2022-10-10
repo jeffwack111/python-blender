@@ -5,7 +5,7 @@ import bpy
 
 #bpy.ops.console.clear(scrollback=True, history=True)
 
-mypath = r"C:\\Users\\jeffw\\OneDrive\\Documents\\blender\\"
+mypath = r"C:\\Users\\jeffw\\OneDrive\\Documents\\python-blender\\"
 basicname = mypath+"constructor.py" 
 exec(compile(open(basicname).read(), basicname, 'exec'))
 
@@ -71,21 +71,18 @@ def add_arrow(name, start,end,radius):
     taper.parent = arrow
 
     return arrow
+ 
 
 
+for k in range(100):
+    start = np.array([k,0,0])
+    end = np.array([k, 6, 0])
 
-   
+    arrow = add_arrow('arrow', start,end, 1)
 
+    arrow.rotation_mode = 'AXIS_ANGLE'
+    arrow.rotation_axis_angle = (0,1,0,0)
 
-
-start = np.array([1,2,3])
-end = np.array([6, 6, 6])
-
-arrow = add_arrow('arrow', start,end, 1)
-
-arrow.rotation_mode = 'AXIS_ANGLE'
-arrow.rotation_axis_angle = (0,1,0,0)
-
-for frame in range(100):
-    arrow.rotation_axis_angle = (frame*2*np.pi/360,1,0,0)
-    arrow.keyframe_insert(data_path="rotation_axis_angle", frame=frame)
+    for frame in range(250):
+        arrow.rotation_axis_angle = (frame*2*np.pi/360+k*2*np.pi/50,1,0,0)
+        arrow.keyframe_insert(data_path="rotation_axis_angle", frame=frame)
